@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>TANIA GUERRERO BEAUTY TRAINNER</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>{% block title %}TANIA GUERRERO BEAUTY TRAINNER{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
+ <!-- Encabezado -->  
 <header>
     <h1>TANIA GUERRERO BEAUTY TRAINNER</h1>
-    <nav>
-        <a href="/">Inicio</a>
-    </nav>
+        <nav>
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+            <a href="{{ url_for('about') }}">Acerca de</a>
+            <a href="{{ url_for('servicios') }}">Servicios</a>
+            <a href="{{ url_for('productos') }}">Productos</a>
+            <a href="{{ url_for('contacto') }}">Contacto</a> 
+        </nav>
 </header>
 
+  <!-- Contenido dinámico -->
 <main>
-    {% block content %}
-    {% endblock %}
+     {% block content %}
+     {% endblock %}
 </main>
 
+    <!-- Pie de página -->
 <footer>
-    <p>© 2026 Belleza</p>
+   <p>&copy; 2026 TANIA GUERRERO BEAUTY TRAINNER</p> 
 </footer>
 
 </body>
