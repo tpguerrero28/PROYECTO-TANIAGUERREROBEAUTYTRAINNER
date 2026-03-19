@@ -21,8 +21,21 @@ main {
 }
 
 footer {
-    background-color: #f08ca3;
+    background-color: #e5859b;
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+
+.flashes li.success {
+    color: green;
+}
+
+.flashes li.warning {
+    color: red;
 }
