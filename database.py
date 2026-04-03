@@ -1,9 +1,13 @@
 import sqlite3
 
+DB_FILE = 'inventario.db'
+
 def conectar_db():
-    return sqlite3.connect('inventario.db')
+    """Conecta a la base de datos SQLite"""
+    return sqlite3.connect(DB_FILE)
 
 def crear_tabla():
+    """Crea la tabla productos si no existe"""
     conn = conectar_db()
     cursor = conn.cursor()
     cursor.execute('''

@@ -3,12 +3,43 @@
 {% block title %}Servicios{% endblock %}
 
 {% block content %}
-<h2>Servicios</h2>
-<ul>
-    <li>Maquillaje Profesional</li>
-    <li>Manicure y pedicure</li>
-    <li>Peinado Profesional</li>
-    <li>Tratamientos faciales</li>
-    <li>keratina</li>
-</ul>
+<div class="text-center mb-5">
+    <h2>Servicios de Tania Guerrero Beauty Trainer</h2>
+    <p class="lead">Descubre nuestros servicios especializados en belleza y entrenamiento personal.</p>
+</div>
+
+<div class="row text-center">
+    <!-- Servicio 1 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/maquillaje.jpg') }}" class="card-img-top" alt="Maquillaje Profesional">
+            <div class="card-body">
+                <h4 class="card-title">Maquillaje Profesional</h4>
+                <p class="card-text">Destaca tu belleza en cualquier ocasión.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servicio 2 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/entrenamiento_personal.jpg') }}" class="card-img-top" alt="Entrenamiento Personal">
+            <div class="card-body">
+                <h4 class="card-title">Entrenamiento Personal</h4>
+                <p class="card-text">Mejora tu salud y bienestar con planes personalizados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servicio 3 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/tratamientos_capilares.jpg') }}" class="card-img-top" alt="Cuidado de la Piel">
+            <div class="card-body">
+                <h4 class="card-title">Cuidado de la Piel</h4>
+                <p class="card-text">Tratamientos profesionales para una piel radiante.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

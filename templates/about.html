@@ -1,8 +1,26 @@
 {% extends "base.html" %}
 
 {% block title %}Acerca de{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}Acerca de{% endblock %}
 
 {% block content %}
-<h2>Acerca de TANIA GUERRERO BEAUTY TRAINNER</h2>
-<p>Somos un Estudio especializado en belleza y entrenamiento personalizado.</p>
+<div class="text-center mb-5">
+    <h2>Acerca de Tania Guerrero Beauty Trainer</h2>
+    <p class="lead">Somos un estudio especializado en belleza y entrenamiento personal, enfocado en brindar servicios profesionales y asesoramiento personalizado para resaltar tu estilo y bienestar.</p>
+</div>
+
+<div class="row align-items-center">
+    <div class="col-md-6 mb-4">
+        <img src="{{ url_for('static', filename='img/maquillaje.jpg') }}" alt="Nuestro Estudio" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+        <h3>Nuestra Misión</h3>
+        <p>Ofrecer servicios de belleza y entrenamiento de alta calidad, potenciando la confianza y el bienestar de nuestros clientes a través de técnicas profesionales y atención personalizada.</p>
+        <h3>Nuestra Visión</h3>
+        <p>Ser reconocidos como el estudio líder en belleza y entrenamiento personal en la región, destacando por nuestra innovación, profesionalismo y resultados excepcionales.</p>
+        <a href="{{ url_for('contacto') }}" class="btn btn-custom mt-3">Contáctanos</a>
+    </div>
+</div>
 {% endblock %}

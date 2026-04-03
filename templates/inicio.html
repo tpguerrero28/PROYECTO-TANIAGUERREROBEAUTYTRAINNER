@@ -1,7 +1,46 @@
 {% extends "base.html" %}
-{% block title%} Pàgina de inicio {%endblock%}
+
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
-<h2>Bienvenida a TANIA GUERRERO BEAUTY TRAINNER</h2>
-<p>Agenda tus momentos de belleza con nosotros.</p>
+<div class="text-center mb-5">
+    <h2>Bienvenidos a Tania Guerrero Beauty Trainer</h2>
+    <p class="lead">Tu estudio especializado en belleza y entrenamiento personal.</p>
+    <a href="{{ url_for('reserva') }}" class="btn btn-primary mt-3">Reserva tu cita</a>
+</div>
+
+<div class="row text-center">
+    <!-- Servicio 1 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/maquillaje.jpg') }}" class="card-img-top" alt="Maquillaje Profesional">
+            <div class="card-body">
+                <h4 class="card-title">Maquillaje Profesional</h4>
+                <p class="card-text">Destaca tu belleza en cualquier ocasión.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servicio 2 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/entrenamiento_personal.jpg') }}" class="card-img-top" alt="Asesoria personalizada">
+            <div class="card-body">
+                <h4 class="card-title">Asesoria personalizada</h4>
+                <p class="card-text">Transformamos momentos en recuerdos inolvidables.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servicio 3 -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='imagenes/tratamientos_capilares.jpg') }}" class="card-img-top" alt="Cuidado capilar">
+            <div class="card-body">
+                <h4 class="card-title">Cuidado capilar</h4>
+                <p class="card-text">Tratamientos profesionales para un cabello fuerte y brillante.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

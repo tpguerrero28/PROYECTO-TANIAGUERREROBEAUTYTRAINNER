@@ -1,0 +1,45 @@
+/* Botón personalizado */
+.btn-custom {
+    background-color: #ff4d6d;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #ff1f4b;
+    transform: scale(1.05);
+}
+
+/* Tarjetas de servicios */
+.servicio-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.servicio-card img {
+    transition: transform 0.3s;
+}
+
+.servicio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.servicio-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Títulos de sección */
+h2, h4 {
+    font-weight: 700;
+}
+
+.card-text {
+    color: #555;
+}
