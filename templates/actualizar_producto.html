@@ -3,28 +3,36 @@
 {% block title %}Actualizar Producto{% endblock %}
 
 {% block content %}
-<div class="text-center mb-5">
-    <h2>Actualizar Producto</h2>
-    <p class="lead">Modifica los detalles de tus productos en el inventario.</p>
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Actualizar Producto</h2>
+
+    <!-- Formulario de actualización -->
+    <div class="card mb-4 p-3">
+        <form method="POST" action="{{ url_for('actualizar_producto', id_producto=producto.id) }}">
+            
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" value="{{ producto.nombre }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" name="cantidad" id="cantidad" class="form-control" value="{{ producto.cantidad }}" min="0" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" name="precio" id="precio" class="form-control" value="{{ producto.precio }}" min="0" step="0.01" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Actualizar Producto</button>
+            <a href="{{ url_for('productos') }}" class="btn btn-secondary">Cancelar</a>
+
+        </form>
+    </div>
+
 </div>
 
-<form>
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre del Producto</label>
-        <input type="text" class="form-control" id="nombre" placeholder="Nombre del producto">
-    </div>
-    <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <textarea class="form-control" id="descripcion" rows="3" placeholder="Descripción del producto"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="precio" class="form-label">Precio</label>
-        <input type="number" class="form-control" id="precio" placeholder="Precio en USD">
-    </div>
-    <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen</label>
-        <input type="file" class="form-control" id="imagen">
-    </div>
-    <button type="submit" class="btn btn-custom">Actualizar</button>
-</form>
 {% endblock %}

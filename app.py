@@ -1,146 +1,95 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
-from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, DecimalField
-from wtforms.validators import DataRequired, NumberRange
-import sqlite3
+# inventario/inventario.py
+
+import json
+import csv
 import os
 
-# =========================
-# CONFIGURACIÓN DE LA APP
-# =========================
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'clave-secreta'
+# Clase Producto
+class Producto:
+    def __init__(self, id, nombre, cantidad, precio):
+        self.id = id
+        self.nombre = nombre
+        self.cantidad = cantidad
+        self.precio = precio
 
-# =========================
-# FORMULARIO DE PRODUCTOS
-# =========================
-class ProductoForm(FlaskForm):
-    nombre = StringField('Nombre', validators=[DataRequired()])
-    cantidad = IntegerField('Cantidad', validators=[DataRequired(), NumberRange(min=0)])
-    precio = DecimalField('Precio', validators=[DataRequired(), NumberRange(min=0)])
+    def to_dict(self):
+        """Convierte el producto en diccionario para JSON/CSV"""
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "cantidad": self.cantidad,
+            "precio": self.precio
+        }
 
-# =========================
-# BASE DE DATOS
-# =========================
-DB_PATH = 'productos.db'
+# Clase Inventario
+class Inventario:
+    def __init__(self):
+        self.productos = {}  # Diccionario con id como clave
 
-def conectar_db():
-    return sqlite3.connect(DB_PATH)
+    def agregar_producto(self, producto):
+        self.productos[producto.id] = producto
 
-def crear_tabla():
-    conn = conectar_db()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS productos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            cantidad INTEGER NOT NULL,
-            precio REAL NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    def eliminar_producto(self, id_producto):
+        if id_producto in self.productos:
+            del self.productos[id_producto]
 
-# Crear la tabla al iniciar
-crear_tabla()
+    def actualizar_producto(self, id_producto, nombre=None, cantidad=None, precio=None):
+        if id_producto in self.productos:
+            p = self.productos[id_producto]
+            if nombre is not None: p.nombre = nombre
+            if cantidad is not None: p.cantidad = cantidad
+            if precio is not None: p.precio = precio
 
-# =========================
-# RUTAS PRINCIPALES
-# =========================
-@app.route('/')
-def inicio():
-    return render_template('inicio.html')
+    def listar_productos(self):
+        return list(self.productos.values())
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+    # Guardar en JSON
+    def guardar_json(self, archivo):
+        data = [p.to_dict() for p in self.productos.values()]
+        with open(archivo, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
 
-@app.route('/servicios')
-def servicios():
-    return render_template('servicios.html')
+    # Leer desde JSON
+    def cargar_json(self, archivo):
+        if not os.path.exists(archivo):
+            return
+        with open(archivo, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            for p in data:
+                producto = Producto(p["id"], p["nombre"], p["cantidad"], p["precio"])
+                self.agregar_producto(producto)
 
-@app.route('/servicio_detalle/<int:id_servicio>')
-def servicio_detalle(id_servicio):
-    # Aquí podrías obtener información de un servicio específico si tuvieras DB de servicios
-    return render_template('servicio_detalle.html', id_servicio=id_servicio)
+    # Guardar en CSV
+    def guardar_csv(self, archivo):
+        with open(archivo, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=["id","nombre","cantidad","precio"])
+            writer.writeheader()
+            for p in self.productos.values():
+                writer.writerow(p.to_dict())
 
-@app.route('/reserva')
-def reserva():
-    return render_template('reserva.html')
+    # Leer desde CSV
+    def cargar_csv(self, archivo):
+        if not os.path.exists(archivo):
+            return
+        with open(archivo, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                producto = Producto(int(row["id"]), row["nombre"], int(row["cantidad"]), float(row["precio"]))
+                self.agregar_producto(producto)
 
-@app.route('/contacto')
-def contacto():
-    return render_template('contacto.html')
+    # Guardar en TXT
+    def guardar_txt(self, archivo):
+        with open(archivo, "w", encoding="utf-8") as f:
+            for p in self.productos.values():
+                f.write(f"{p.id},{p.nombre},{p.cantidad},{p.precio}\n")
 
-# =========================
-# CRUD PRODUCTOS
-# =========================
-@app.route('/productos', methods=['GET', 'POST'])
-def productos():
-    form = ProductoForm()
-    if form.validate_on_submit():
-        nombre = form.nombre.data
-        cantidad = form.cantidad.data
-        precio = float(form.precio.data)
-
-        conn = conectar_db()
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO productos (nombre, cantidad, precio) VALUES (?, ?, ?)",
-            (nombre, cantidad, precio)
-        )
-        conn.commit()
-        conn.close()
-        flash('Producto agregado con éxito!', 'success')
-        return redirect(url_for('productos'))
-
-    # Obtener productos
-    conn = conectar_db()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM productos")
-    productos_db = cursor.fetchall()
-    conn.close()
-
-    productos = [{"id": p[0], "nombre": p[1], "cantidad": p[2], "precio": p[3]} for p in productos_db]
-
-    return render_template('productos.html', productos=productos, form=form)
-
-@app.route('/eliminar_producto/<int:id_producto>')
-def eliminar_producto(id_producto):
-    conn = conectar_db()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM productos WHERE id=?", (id_producto,))
-    conn.commit()
-    conn.close()
-    flash('Producto eliminado!', 'warning')
-    return redirect(url_for('productos'))
-
-@app.route('/actualizar_producto/<int:id_producto>', methods=['GET', 'POST'])
-def actualizar_producto(id_producto):
-    conn = conectar_db()
-    cursor = conn.cursor()
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        cantidad = int(request.form['cantidad'])
-        precio = float(request.form['precio'])
-        cursor.execute(
-            "UPDATE productos SET nombre=?, cantidad=?, precio=? WHERE id=?",
-            (nombre, cantidad, precio, id_producto)
-        )
-        conn.commit()
-        conn.close()
-        flash('Producto actualizado!', 'success')
-        return redirect(url_for('productos'))
-    else:
-        cursor.execute("SELECT * FROM productos WHERE id=?", (id_producto,))
-        p = cursor.fetchone()
-        producto = {"id": p[0], "nombre": p[1], "cantidad": p[2], "precio": p[3]} if p else None
-        conn.close()
-        return render_template('actualizar_producto.html', producto=producto)
-
-# =========================
-# EJECUCIÓN
-# =========================
-if __name__ == '__main__':
-    app.run(debug=True)
-    
+    # Leer desde TXT
+    def cargar_txt(self, archivo):
+        if not os.path.exists(archivo):
+            return
+        with open(archivo, "r", encoding="utf-8") as f:
+            for line in f:
+                id_, nombre, cantidad, precio = line.strip().split(",")
+                producto = Producto(int(id_), nombre, int(cantidad), float(precio))
+                self.agregar_producto(producto)
+                
