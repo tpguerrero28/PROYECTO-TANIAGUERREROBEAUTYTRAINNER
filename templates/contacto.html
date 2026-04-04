@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto - Beauty Trainer{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="text-center mb-4">Contáctanos</h2>
+
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('contacto') }}">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="tu@email.com">
+        </div>
+        <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje:</label>
+            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

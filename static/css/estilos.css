@@ -45,9 +45,13 @@ body {
     transition: all 0.3s;
 }
 
+.btn-pink {
+    background-color: #d63384;
+    color: white;
+    border: none;
+}
 .btn-pink:hover {
-    background-color: #c12f75 !important;
-    transition: 0.3s;
+    background-color: #b02a6f
 }
 
 input.form-control, select.form-select {
@@ -65,12 +69,6 @@ input.form-control, select.form-select {
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
 }
-
-.servicio-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
-
 .servicio-card img {
     height: 250px;
     object-fit: cover;

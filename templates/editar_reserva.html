@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Reserva{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center">Editar Reserva</h2>
+
+<form method="POST" action="{{ url_for('editar_reserva', id=reserva[0]) }}">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ reserva[1] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ reserva[2] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="servicio" class="form-label">Servicio</label>
+        <select class="form-select" id="servicio" name="servicio" required>
+            <option value="Maquillaje Profesional" {% if reserva[3]=='Maquillaje Profesional' %}selected{% endif %}>Maquillaje Profesional</option>
+            <option value="Asesoría Personal" {% if reserva[3]=='Asesoría Personal' %}selected{% endif %}>Asesoría Personal</option>
+            <option value="Tratamiento Capilar" {% if reserva[3]=='Tratamiento Capilar' %}selected{% endif %}>Tratamiento Capilar</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="fecha" name="fecha" value="{{ reserva[4] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="hora" class="form-label">Hora</label>
+        <input type="time" class="form-control" id="hora" name="hora" value="{{ reserva[5] }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a href="{{ url_for('ver_reservas') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

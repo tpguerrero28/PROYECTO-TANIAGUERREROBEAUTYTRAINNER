@@ -3,15 +3,18 @@
 {% block title %}Inicio - Beauty Trainer{% endblock %}
 
 {% block content %}
+<!-- SECCIÓN DE BIENVENIDA -->
 <div class="text-center mt-5">
-    <h1 class="mb-4">Bienvenida a Tania Guerrero Beauty Trainer 💄</h1>
+    <h1 class="mb-4">Bienvenida a Tania Guerrero Beauty Trainer</h1>
     <p class="lead">Sistema de gestión de belleza y asesorías personalizadas.</p>
 
     <img src="{{ url_for('static', filename='imagenes/bienvenida.jpg') }}" 
          class="img-fluid rounded mt-4" width="400" alt="Entrenamiento Personal">
 
-    <div class="mt-5">
-        <a href="/servicios" class="btn btn-primary btn-lg">Ver Servicios</a>
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="mt-4">
+        <a href="{{ url_for('reserva') }}" class="btn btn-pink btn-lg me-2">Reservar Cita</a>
+        <a href="{{ url_for('ver_reservas') }}" class="btn btn-success btn-lg">Ver Reservas</a>
     </div>
 </div>
 
@@ -22,7 +25,7 @@
 
         <!-- MAQUILLAJE -->
         <div class="col-md-4 mb-4">
-            <div class="card servicio-card h-100">
+            <div class="card servicio-card h-100 shadow-sm">
                 <img src="{{ url_for('static', filename='imagenes/maquillaje.jpg') }}" class="card-img-top" alt="Maquillaje Profesional">
                 <div class="card-body text-center">
                     <h5 class="card-title">Maquillaje y Peinado Profesional</h5>
@@ -33,7 +36,7 @@
 
         <!-- ASESORÍA -->
         <div class="col-md-4 mb-4">
-            <div class="card servicio-card h-100">
+            <div class="card servicio-card h-100 shadow-sm">
                 <img src="{{ url_for('static', filename='imagenes/entrenamiento_personal.jpg') }}" class="card-img-top" alt="Asesoría Personalizada">
                 <div class="card-body text-center">
                     <h5 class="card-title">Asesoría Personalizada</h5>
@@ -42,13 +45,13 @@
             </div>
         </div>
 
-        <!-- TRATAMIENTOS -->
+        <!-- TRATAMIENTOS CAPILARES -->
         <div class="col-md-4 mb-4">
-            <div class="card servicio-card h-100">
+            <div class="card servicio-card h-100 shadow-sm">
                 <img src="{{ url_for('static', filename='imagenes/tratamientos_capilares.jpg') }}" class="card-img-top" alt="Tratamientos Capilares">
                 <div class="card-body text-center">
                     <h5 class="card-title">Tratamientos Capilares</h5>
-                    <p class="card-text">Recupera el brillo y salud de tu cabello con nuestros tratamientos.</p>
+                    <p class="card-text">Recupera el brillo y salud de tu cabello con nuestros tratamientos profesionales.</p>
                 </div>
             </div>
         </div>

@@ -1,54 +1,51 @@
 {% extends "base.html" %}
 
+{% block title %}Reserva{% endblock %}
+
 {% block content %}
-<h2>Lista de Reservas</h2>
-<table class="table">
-    <tr>
-        <th>ID</th><th>Nombre</th><th>Teléfono</th><th>Servicio</th><th>Fecha</th><th>Hora</th>
-    </tr>
-    {% for r in reservas %}
-    <tr>
-        <td>{{ r.id_reserva }}</td>
-        <td>{{ r.nombre_cliente }}</td>
-        <td>{{ r.telefono }}</td>
-        <td>{{ r.servicio }}</td>
-        <td>{{ r.fecha }}</td>
-        <td>{{ r.hora }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% endblock %}
 <div class="text-center mb-5">
     <h2>Reserva tu cita</h2>
     <p class="lead">Completa el formulario para reservar tu servicio.</p>
 </div>
 
-<form>
+<!-- Mensajes flash -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form method="POST" action="{{ url_for('reserva') }}">
     <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+        <label for="nombre_cliente" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" placeholder="Tu nombre" required>
     </div>
     <div class="mb-3">
         <label for="telefono" class="form-label">Teléfono</label>
-        <input type="tel" class="form-control" id="telefono" placeholder="Tu teléfono">
+        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Tu teléfono" required>
     </div>
     <div class="mb-3">
         <label for="servicio" class="form-label">Servicio</label>
-        <select class="form-select" id="servicio">
-            <option selected>Selecciona un servicio</option>
-            <option value="1">Maquillaje Profesional</option>
-            <option value="2">Entrenamiento Personal</option>
-            <option value="3">Cuidado de la Piel</option>
+        <select class="form-select" id="servicio" name="servicio" required>
+            <option selected disabled>Selecciona un servicio</option>
+            <option value="Maquillaje Profesional">Maquillaje Profesional</option>
+            <option value="Asesoría Personalizada">Asesoría Personalizada</option>
+            <option value="Tratamientos Capilares">Tratamientos Capilares</option>
         </select>
     </div>
     <div class="mb-3">
         <label for="fecha" class="form-label">Fecha</label>
-        <input type="date" class="form-control" id="fecha">
+        <input type="date" class="form-control" id="fecha" name="fecha" required>
     </div>
     <div class="mb-3">
         <label for="hora" class="form-label">Hora</label>
-        <input type="time" class="form-control" id="hora">
+        <input type="time" class="form-control" id="hora" name="hora" required>
     </div>
-    <button type="submit" class="btn btn-custom">Reservar</button>
+    <button type="submit" class="btn btn-primary">Reservar</button>
 </form>
 {% endblock %}
