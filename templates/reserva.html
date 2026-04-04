@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Reserva{% endblock %}
-
 {% block content %}
+<h2>Lista de Reservas</h2>
+<table class="table">
+    <tr>
+        <th>ID</th><th>Nombre</th><th>Teléfono</th><th>Servicio</th><th>Fecha</th><th>Hora</th>
+    </tr>
+    {% for r in reservas %}
+    <tr>
+        <td>{{ r.id_reserva }}</td>
+        <td>{{ r.nombre_cliente }}</td>
+        <td>{{ r.telefono }}</td>
+        <td>{{ r.servicio }}</td>
+        <td>{{ r.fecha }}</td>
+        <td>{{ r.hora }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
 <div class="text-center mb-5">
     <h2>Reserva tu cita</h2>
     <p class="lead">Completa el formulario para reservar tu servicio.</p>

@@ -1,7 +1,32 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, url_for
+from Conexion.conexion import get_connection
 
 app = Flask(__name__)
-app.secret_key = "beautytrainer2026"  # para flash
+
+@app.route('/reserva', methods=['GET', 'POST'])
+def reserva():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        telefono = request.form['telefono']
+        servicio = request.form['servicio']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO reservas (nombre_cliente, telefono, servicio, fecha, hora) VALUES (%s, %s, %s, %s, %s)",
+                       (nombre, telefono, servicio, fecha, hora))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for('reserva_exitosa'))
+    
+    return render_template('reserva.html')
+
+@app.route('/reserva_exitosa')
+def reserva_exitosa():
+    return "¡Reserva registrada con éxito!"
 
 @app.route('/')
 def inicio():
