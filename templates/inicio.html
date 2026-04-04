@@ -1,46 +1,58 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Inicio - Beauty Trainer{% endblock %}
 
 {% block content %}
-<div class="text-center mb-5">
-    <h2>Bienvenidos a Tania Guerrero Beauty Trainer</h2>
-    <p class="lead">Tu estudio especializado en belleza y entrenamiento personal.</p>
-    <a href="{{ url_for('reserva') }}" class="btn btn-primary mt-3">Reserva tu cita</a>
+<div class="text-center mt-5">
+    <h1 class="mb-4">Bienvenida a Tania Guerrero Beauty Trainer 💄</h1>
+    <p class="lead">Sistema de gestión de belleza y asesorías personalizadas.</p>
+
+    <img src="{{ url_for('static', filename='imagenes/bienvenida.jpg') }}" 
+         class="img-fluid rounded mt-4" width="400" alt="Entrenamiento Personal">
+
+    <div class="mt-5">
+        <a href="/servicios" class="btn btn-primary btn-lg">Ver Servicios</a>
+    </div>
 </div>
 
-<div class="row text-center">
-    <!-- Servicio 1 -->
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <img src="{{ url_for('static', filename='imagenes/maquillaje.jpg') }}" class="card-img-top" alt="Maquillaje Profesional">
-            <div class="card-body">
-                <h4 class="card-title">Maquillaje Profesional</h4>
-                <p class="card-text">Destaca tu belleza en cualquier ocasión.</p>
-            </div>
-        </div>
-    </div>
+<!-- SECCIÓN DE SERVICIOS -->
+<div class="container mt-5">
+    <h2 class="text-center mb-5">✨ Nuestros Servicios ✨</h2>
+    <div class="row">
 
-    <!-- Servicio 2 -->
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <img src="{{ url_for('static', filename='imagenes/entrenamiento_personal.jpg') }}" class="card-img-top" alt="Asesoria personalizada">
-            <div class="card-body">
-                <h4 class="card-title">Asesoria personalizada</h4>
-                <p class="card-text">Transformamos momentos en recuerdos inolvidables.</p>
+        <!-- MAQUILLAJE -->
+        <div class="col-md-4 mb-4">
+            <div class="card servicio-card h-100">
+                <img src="{{ url_for('static', filename='imagenes/maquillaje.jpg') }}" class="card-img-top" alt="Maquillaje Profesional">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Maquillaje y Peinado Profesional</h5>
+                    <p class="card-text">Realzamos tu belleza para eventos especiales con técnicas modernas.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Servicio 3 -->
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <img src="{{ url_for('static', filename='imagenes/tratamientos_capilares.jpg') }}" class="card-img-top" alt="Cuidado capilar">
-            <div class="card-body">
-                <h4 class="card-title">Cuidado capilar</h4>
-                <p class="card-text">Tratamientos profesionales para un cabello fuerte y brillante.</p>
+        <!-- ASESORÍA -->
+        <div class="col-md-4 mb-4">
+            <div class="card servicio-card h-100">
+                <img src="{{ url_for('static', filename='imagenes/entrenamiento_personal.jpg') }}" class="card-img-top" alt="Asesoría Personalizada">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Asesoría Personalizada</h5>
+                    <p class="card-text">Te guiamos según tu estilo, rostro y tipo de piel.</p>
+                </div>
             </div>
         </div>
+
+        <!-- TRATAMIENTOS -->
+        <div class="col-md-4 mb-4">
+            <div class="card servicio-card h-100">
+                <img src="{{ url_for('static', filename='imagenes/tratamientos_capilares.jpg') }}" class="card-img-top" alt="Tratamientos Capilares">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tratamientos Capilares</h5>
+                    <p class="card-text">Recupera el brillo y salud de tu cabello con nuestros tratamientos.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}

@@ -1,1 +1,14 @@
-# Formato: id|nombre|cantidad|precio
+@app.route("/producto_form", methods=["GET", "POST"])
+def producto_form():
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        precio = request.form["precio"]
+
+        # ✅ GUARDAR EN TXT
+        with open("inventario/data/datos.txt", "a") as archivo:
+            archivo.write(nombre + "," + precio + "\n")
+
+        return redirect("/productos")
+
+    return render_template("producto_form.html")
+    

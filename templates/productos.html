@@ -1,67 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}Productos{% endblock %}
-
 {% block content %}
 
-<div class="container my-5">
+<div class="container">
 
-    <h2 class="text-center mb-4">Productos</h2>
+    <h2 class="mb-4">📦 Productos</h2>
 
-    <!-- Mensajes flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+    <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary mb-3">
+        ➕ Nuevo Producto
+    </a>
 
-    <!-- Formulario para agregar producto -->
-    <div class="card mb-4 p-3">
-        <form method="POST" action="{{ url_for('productos') }}">
-            {{ form.hidden_tag() }}
-            <div class="mb-3">
-                {{ form.nombre.label(class="form-label") }}
-                {{ form.nombre(class="form-control") }}
-            </div>
-            <div class="mb-3">
-                {{ form.cantidad.label(class="form-label") }}
-                {{ form.cantidad(class="form-control") }}
-            </div>
-            <div class="mb-3">
-                {{ form.precio.label(class="form-label") }}
-                {{ form.precio(class="form-control") }}
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar Producto</button>
-        </form>
-    </div>
-
-    <!-- Tabla de productos -->
-    <table class="table table-striped text-center">
+    <table class="table table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
-                <th>Acciones</th>
             </tr>
         </thead>
+
         <tbody>
-            {% for producto in productos %}
+            {% for p in productos %}
             <tr>
-                <td>{{ producto.id }}</td>
-                <td>{{ producto.nombre }}</td>
-                <td>{{ producto.cantidad }}</td>
-                <td>${{ "%.2f"|format(producto.precio) }}</td>
-                <td>
-                    <a href="{{ url_for('actualizar_producto', id_producto=producto.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{{ url_for('eliminar_producto', id_producto=producto.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Deseas eliminar este producto?')">Eliminar</a>
-                </td>
+                <td>{{ p.id }}</td>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>${{ p.precio }}</td>
             </tr>
             {% endfor %}
         </tbody>

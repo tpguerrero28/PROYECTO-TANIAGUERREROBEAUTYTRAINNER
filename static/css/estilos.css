@@ -1,45 +1,105 @@
-/* Botón personalizado */
-.btn-custom {
-    background-color: #ff4d6d;
-    color: white;
+/* styles.css */
+
+/* ===== General ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdf5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== Navbar ===== */
+.navbar-brand {
     font-weight: bold;
-    padding: 10px 25px;
-    border-radius: 50px;
-    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1.5rem;
 }
 
-.btn-custom:hover {
-    background-color: #ff1f4b;
-    transform: scale(1.05);
+.navbar .btn-outline-light {
+    transition: all 0.3s;
 }
 
-/* Tarjetas de servicios */
+.navbar .btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* ===== Bienvenida ===== */
+.container.text-center h1 {
+    font-size: 2.5rem;
+    color: #d63384; /* color rosa maquillaje */
+}
+
+.container.text-center p.lead {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.container.text-center img {
+    border: 3px solid #d63384;
+}
+
+/* Botón principal */
+.btn-primary {
+    background-color: #d63384;
+    border-color: #d63384;
+    transition: all 0.3s;
+}
+
+.btn-pink:hover {
+    background-color: #c12f75 !important;
+    transition: 0.3s;
+}
+
+input.form-control, select.form-select {
+    border-radius: 12px;
+}
+
+.card {
+    border: none;
+}
+
+/* ===== Sección de servicios ===== */
 .servicio-card {
     border: none;
     border-radius: 15px;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.servicio-card img {
-    transition: transform 0.3s;
 }
 
 .servicio-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
-.servicio-card:hover img {
-    transform: scale(1.05);
+.servicio-card img {
+    height: 250px;
+    object-fit: cover;
 }
 
-/* Títulos de sección */
-h2, h4 {
-    font-weight: 700;
+.servicio-card h5 {
+    font-weight: bold;
+    color: #d63384;
 }
 
-.card-text {
+.servicio-card p {
+    font-size: 0.95rem;
     color: #555;
+}
+
+/* ===== Footer ===== */
+footer {
+    background-color: #212529;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* ===== Responsividad ===== */
+@media (max-width: 767px) {
+    .container.text-center h1 {
+        font-size: 2rem;
+    }
+
+    .servicio-card img {
+        height: 200px;
+    }
 }
