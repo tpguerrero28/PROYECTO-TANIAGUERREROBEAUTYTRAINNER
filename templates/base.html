@@ -11,18 +11,45 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+</div>
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Tania Guerrero Beauty Trainer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="ms-auto">
-                <a class="btn btn-outline-light me-2" href="/">Inicio</a>
-                <a class="btn btn-outline-light me-2" href="/servicios">Servicios</a>
-                <a class="btn btn-outline-light" href="/contactos">Contacto</a>
-            </div>
+        <div class="ms-auto d-flex align-items-center">
+
+    <a class="btn btn-outline-light me-2" href="/">Inicio</a>
+    <a class="btn btn-outline-light me-2" href="/servicios">Servicios</a>
+    <a class="btn btn-outline-light me-2" href="/contacto">Contacto</a>
+
+    {% if current_user.is_authenticated %}
+        <span class="text-white me-2">
+            👤 {{ current_user.nombre }}
+        </span>
+
+        <a class="btn btn-danger" href="{{ url_for('logout') }}">
+            Cerrar sesión
+        </a>
+    {% else %}
+        <a class="btn btn-success" href="{{ url_for('login') }}">
+            Iniciar sesión
+        </a>
+
+        <a href="{{ url_for('registro') }}" class="btn btn-outline-light">
+    Registrarse
+</a>
+    {% endif %}
+</div>
         </div>
     </div>
 </nav>
