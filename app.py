@@ -142,7 +142,7 @@ def login():
             usuario = Usuario(user[0], user[1], user[2], user[3])
             login_user(usuario)
 
-            flash("Bienvenido", "success")
+            #flash("Bienvenido", "success")
             return redirect(url_for('inicio'))
         else:
             flash("Correo o contraseña incorrectos", "danger")
