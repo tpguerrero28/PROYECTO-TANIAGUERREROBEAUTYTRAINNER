@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto</title>
+</head>
+<body>
+    <h1>Editar Producto</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(size=30) }}
+        </p>
+        <p>
+            {{ form.precio.label }}<br>
+            {{ form.precio() }}
+        </p>
+        <p>
+            {{ form.stock.label }}<br>
+            {{ form.stock() }}
+        </p>
+        <p><button type="submit">Actualizar</button></p>
+    </form>
+    <a href="{{ url_for('productos') }}">Volver</a>
+</body>
+</html>

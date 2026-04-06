@@ -5,10 +5,10 @@ def get_connection():
     try:
         connection = mysql.connector.connect(
             host="localhost",
-            port=3309,
-            user="root",
-            password="12345",
-            database="beauty_trainer"
+            port=3309,          # Puerto que me dijiste
+            user="root",        # Usuario
+            password="12345",   # Tu contraseña
+            database="beauty_trainer"  # Nombre de tu base de datos
         )
         return connection
     except Error as e:

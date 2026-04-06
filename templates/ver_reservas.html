@@ -19,17 +19,24 @@
                     <th>Servicio</th>
                     <th>Fecha</th>
                     <th>Hora</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for r in reservas %}
                 <tr>
-                    <td>{{ r[0] }}</td>
-                    <td>{{ r[1] }}</td>
-                    <td>{{ r[2] }}</td>
-                    <td>{{ r[3] }}</td>
-                    <td>{{ r[4] }}</td>
-                    <td>{{ r[5] }}</td>
+                    <td>{{ r.id_reserva }}</td>
+                    <td>{{ r.nombre_cliente }}</td>
+                    <td>{{ r.telefono }}</td>
+                    <td>{{ r.servicio }}</td>
+                    <td>{{ r.fecha }}</td>
+                    <td>{{ r.hora }}</td>
+                    <td>
+                    <a href="{{ url_for('editar_reserva', id=r.id_reserva) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('eliminar_reserva', id=r.id_reserva) }}" method="POST" style="display:inline;">
+                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta reserva?');">Eliminar</button>
+               </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -39,6 +46,7 @@
         {% endif %}
 
         <div class="text-center mt-3">
+            <a href="{{ url_for('reporte_reservas') }}" class="btn btn-primary">Generar PDF</a>
             <a href="{{ url_for('inicio') }}" class="btn btn-secondary">Volver al inicio</a>
         </div>
     </div>
